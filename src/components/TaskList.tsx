@@ -16,15 +16,19 @@ export function TaskList() {
 
   function handleCreateNewTask() {
     // Crie uma nova task com um id random, não permita criar caso o título seja vazio.
+    if (!newTaskTitle) {
+      return;
+    }
+
     const data = {
       id: new Date().getTime(),
       title: newTaskTitle,
       isComplete: false,
     }
+    const newTask = tasks.map( task => ({...task}))
+    const itemTask = newTask.find(item => item.title === newTaskTitle)
 
-    const result = tasks.find(({ title })=> title === newTaskTitle)
-
-    if (result == null) {
+    if (!itemTask) {
       setTasks( oldData => [ ...oldData, data] );
     }
   }
